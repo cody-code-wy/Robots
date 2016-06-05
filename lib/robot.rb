@@ -24,8 +24,16 @@ class Robot
     @health = 100 if @health > 100
   end
 
+  def range()
+    unless equipped_weapon.nil?
+      equipped_weapon.range
+    else
+      1
+    end
+  end
+
   def can_attack?(robot)
-    (position[0] - robot.position[0]).abs <= 1 && (position[1] - robot.position[1]).abs <= 1
+    (position[0] - robot.position[0]).abs <= range && (position[1] - robot.position[1]).abs <= range
   end
 
   def attack!(robot)
@@ -37,6 +45,10 @@ class Robot
     return false unless can_attack?(robot)
     unless equipped_weapon.nil?
       equipped_weapon.hit(robot)
+      if equipped_weapon.one_use
+        @items.delete(equipped_weapon)
+        @equipped_weapon = nil
+      end
     else
       robot.wound(5)
     end

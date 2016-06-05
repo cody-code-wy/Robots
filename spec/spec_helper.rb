@@ -8,7 +8,7 @@ require 'byebug'
 def safe_require(file)
   require file
 rescue LoadError
-  # ignore
+  puts "File Failed to load"
 end
 
 # Safely require the files that are expected to be created.
@@ -20,3 +20,4 @@ safe_require 'laser'
 safe_require 'plasma_cannon'
 safe_require 'dead_robot_error'
 safe_require 'not_a_robot_error'
+safe_require 'grenade'
