@@ -14,9 +14,19 @@ class Robot
     @health = 0 if @health < 0
   end
 
+  def heal!(ammount)
+    raise DeadRobotError,"Cannot heal dead robot" if health <= 0
+    heal(ammount)
+  end
+
   def heal(ammount)
     @health += ammount
     @health = 100 if @health > 100
+  end
+
+  def attack!(robot)
+    raise NotARobot, "Target must be robot" unless robot.is_a? Robot
+    attack(robot)
   end
 
   def attack(robot)

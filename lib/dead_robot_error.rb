@@ -1,0 +1,3 @@
+class DeadRobotError < Exception
+
+end
