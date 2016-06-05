@@ -24,12 +24,17 @@ class Robot
     @health = 100 if @health > 100
   end
 
+  def can_attack?(robot)
+    (position[0] - robot.position[0]).abs <= 1 && (position[1] - robot.position[1]).abs <= 1
+  end
+
   def attack!(robot)
     raise NotARobot, "Target must be robot" unless robot.is_a? Robot
     attack(robot)
   end
 
   def attack(robot)
+    return false unless can_attack?(robot)
     unless equipped_weapon.nil?
       equipped_weapon.hit(robot)
     else
