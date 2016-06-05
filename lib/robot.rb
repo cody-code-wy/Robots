@@ -46,6 +46,9 @@ class Robot
     if can_pick_up? item
       @items << item
       @equipped_weapon = item if item.is_a? Weapon
+      if item.is_a?(BoxOfBolts) && health <= 80
+        item.feed(self)
+      end
       true
     else
       false
